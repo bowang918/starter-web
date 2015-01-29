@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+	<Properties>
+		<Property name="filename">/starter-web.log</Property>
+	</Properties>
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %msg -- %c{1.} %n%rEx{full} "/>
+		</Console>
+		<RollingFile name="RollingFile" fileName="${filename}" filePattern="/starter-web/$${date:yyyy-MM}/starter-web.%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<pattern>%d %p %c{1.} %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.seven7" level="debug" additivity="false">
+			<AppenderRef ref="RollingFile" />
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="stdout"/>
+			<AppenderRef ref="RollingFile" level="info" />
+		</Root>
+	</Loggers>
+</Configuration>
